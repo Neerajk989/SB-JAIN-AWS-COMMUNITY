@@ -2873,3 +2873,10 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--orange); outlin
 @media (hover: none), (pointer: coarse) { .cursor-dot, .cursor-ring { display: none; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; } body::after { display: none; } }
 @media (max-width: 900px) { .hero-content { width: 100%; } .hero-card { position: relative; top: auto; right: auto; width: min(100%, 540px); margin: 50px 0 0 auto; } .navbar { padding-inline: 22px; } }
+
+/* Hero simplification: remove only the background theme and right display image. */
+.hero { background: #07090d; }
+.hero-background, .hero-grid, .particles, .live-canvas, .hero-card { display: none !important; }
+.hero-content { width: min(780px, 100%); max-width: 780px; }
+.hero::after { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; background: radial-gradient(circle at 78% 32%, rgba(217,255,0,.045), transparent 28%), linear-gradient(180deg, rgba(7,9,13,0), rgba(7,9,13,.26)); }
+.hero-content, .hero-side-label, .hero-bottom { position: relative; z-index: 2; }
