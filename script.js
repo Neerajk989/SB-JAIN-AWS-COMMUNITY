@@ -1,551 +1,127 @@
-/* =========================================================
-   LOADER
-========================================================= */
-
-window.addEventListener("load", () => {
-
-    const loader = document.getElementById("loader");
-
-    setTimeout(() => {
-
-        loader.classList.add("hide");
-
-    }, 900);
-
-});
-
-
-
-/* =========================================================
-   MOBILE MENU
-========================================================= */
-
-const menuButton = document.getElementById("menuButton");
-const mobileMenu = document.getElementById("mobileMenu");
-
-menuButton.addEventListener("click", () => {
-
-    mobileMenu.classList.toggle("active");
-
-});
-
-
-document.querySelectorAll(".mobile-menu a").forEach(link => {
-
-    link.addEventListener("click", () => {
-
-        mobileMenu.classList.remove("active");
-
-    });
-
-});
-
-
-
-/* =========================================================
-   COUNTDOWN
-========================================================= */
-
-/*
-    Change this date when your real event date is confirmed.
-
-    Example:
-
-    const eventDate = new Date("2026-12-15T09:00:00").getTime();
-*/
-
-const eventDate = new Date("2026-12-31T09:00:00").getTime();
-
-
-function updateCountdown() {
-
-    const now = new Date().getTime();
-
-    const distance = eventDate - now;
-
-
-    if (distance <= 0) {
-
-        document.getElementById("days").textContent = "00";
-        document.getElementById("hours").textContent = "00";
-        document.getElementById("minutes").textContent = "00";
-        document.getElementById("seconds").textContent = "00";
-
-        return;
-
-    }
-
-
-    const days = Math.floor(
-        distance / (1000 * 60 * 60 * 24)
-    );
-
-    const hours = Math.floor(
-        (distance % (1000 * 60 * 60 * 24))
-        / (1000 * 60 * 60)
-    );
-
-    const minutes = Math.floor(
-        (distance % (1000 * 60 * 60))
-        / (1000 * 60)
-    );
-
-    const seconds = Math.floor(
-        (distance % (1000 * 60))
-        / 1000
-    );
-
-
-    document.getElementById("days").textContent =
-        String(days).padStart(2, "0");
-
-    document.getElementById("hours").textContent =
-        String(hours).padStart(2, "0");
-
-    document.getElementById("minutes").textContent =
-        String(minutes).padStart(2, "0");
-
-    document.getElementById("seconds").textContent =
-        String(seconds).padStart(2, "0");
-
-}
-
-
-updateCountdown();
-
-setInterval(updateCountdown, 1000);
-
-
-
-/* =========================================================
-   NUMBER COUNTERS
-========================================================= */
-
-const counters = document.querySelectorAll(".counter");
-
-const counterObserver = new IntersectionObserver(
-
-    entries => {
-
-        entries.forEach(entry => {
-
-            if (!entry.isIntersecting) {
-                return;
-            }
-
-            const counter = entry.target;
-
-            const target =
-                Number(counter.dataset.target);
-
-            let current = 0;
-
-            const duration = 1600;
-
-            const startTime = performance.now();
-
-
-            function animateCounter(currentTime) {
-
-                const progress =
-                    Math.min(
-                        (currentTime - startTime) / duration,
-                        1
-                    );
-
-                current =
-                    Math.floor(
-                        progress * target
-                    );
-
-                counter.textContent = current;
-
-
-                if (progress < 1) {
-
-                    requestAnimationFrame(
-                        animateCounter
-                    );
-
-                } else {
-
-                    counter.textContent = target;
-
-                }
-
-            }
-
-
-            requestAnimationFrame(
-                animateCounter
-            );
-
-
-            counterObserver.unobserve(counter);
-
-        });
-
-    },
-
-    {
-        threshold: .7
-    }
-
-);
-
-
-counters.forEach(counter => {
-
-    counterObserver.observe(counter);
-
-});
-
-
-
-/* =========================================================
-   FAQ
-========================================================= */
-
-const faqQuestions =
-    document.querySelectorAll(".faq-question");
-
-
-faqQuestions.forEach(question => {
-
-    question.addEventListener("click", () => {
-
-        const item =
-            question.parentElement;
-
-
-        document
-            .querySelectorAll(".faq-item")
-            .forEach(otherItem => {
-
-                if (otherItem !== item) {
-
-                    otherItem.classList.remove(
-                        "active"
-                    );
-
-                }
-
-            });
-
-
-        item.classList.toggle("active");
-
-    });
-
-});
-
-
-
-/* =========================================================
-   LIVE PARALLAX BACKGROUND
-========================================================= */
-
-const hero = document.querySelector(".hero");
-const heroImage = document.querySelector(".hero-image");
-
-
-if (hero && heroImage) {
-
-    hero.addEventListener("mousemove", event => {
-
-        const x =
-            (event.clientX / window.innerWidth - .5) * 2;
-
-        const y =
-            (event.clientY / window.innerHeight - .5) * 2;
-
-
-        heroImage.style.transform = `
-            scale(1.09)
-            translate3d(
-                ${x * -7}px,
-                ${y * -5}px,
-                0
-            )
-        `;
-
-    });
-
-
-    hero.addEventListener("mouseleave", () => {
-
-        heroImage.style.transform =
-            "scale(1.08) translate3d(0,0,0)";
-
-    });
-
-}
-
-
-
-/* =========================================================
-   SCROLL REVEAL
-========================================================= */
-
-const revealElements = document.querySelectorAll(
-    ".feature-card, .speaker-card, .team-card, .value, .agenda-item"
-);
-
-
-revealElements.forEach(element => {
-
-    element.style.opacity = "0";
-
-    element.style.transform =
-        "translateY(30px)";
-
-    element.style.transition =
-        "opacity .7s ease, transform .7s ease";
-
-});
-
-
-const revealObserver = new IntersectionObserver(
-
-    entries => {
-
-        entries.forEach(entry => {
-
-            if (!entry.isIntersecting) {
-                return;
-            }
-
-            entry.target.style.opacity = "1";
-
-            entry.target.style.transform =
-                "translateY(0)";
-
-            revealObserver.unobserve(
-                entry.target
-            );
-
-        });
-
-    },
-
-    {
-        threshold: .12
-    }
-
-);
-
-
-revealElements.forEach(element => {
-
-    revealObserver.observe(element);
-
-});
-
-
-
-/* =========================================================
-   NAVBAR SCROLL EFFECT
-========================================================= */
-
-const navbar =
-    document.querySelector(".navbar");
-
-
-window.addEventListener("scroll", () => {
-
-    if (window.scrollY > 80) {
-
-        navbar.style.background =
-            "rgba(4,8,14,.94)";
-
-        navbar.style.boxShadow =
-            "0 15px 50px rgba(0,0,0,.4)";
-
-    } else {
-
-        navbar.style.background =
-            "rgba(7,12,21,.82)";
-
-        navbar.style.boxShadow =
-            "0 20px 70px rgba(0,0,0,.35)";
-
-    }
-
-});
-
-
-
-/* =========================================================
-   ACTIVE NAV LINK
-========================================================= */
-
-const sections =
-    document.querySelectorAll("section[id]");
-
-const navLinks =
-    document.querySelectorAll(".nav-links a");
-
-
-window.addEventListener("scroll", () => {
-
-    let current = "";
-
-    sections.forEach(section => {
-
-        const sectionTop =
-            section.offsetTop - 180;
-
-        if (window.scrollY >= sectionTop) {
-
-            current =
-                section.getAttribute("id");
-
-        }
-
-    });
-
-
-    navLinks.forEach(link => {
-
-        link.style.color = "#aeb8c7";
-
-        if (
-            link.getAttribute("href") ===
-            "#" + current
-        ) {
-
-            link.style.color = "#ff9900";
-
-        }
-
-    });
-
-});
-
-
-/* =========================================================
-   LIVE NETWORK BACKGROUND + CURSOR
-========================================================= */
 (() => {
-    const canvas = document.getElementById("liveCanvas");
-    const dot = document.getElementById("cursorDot");
-    const ring = document.getElementById("cursorRing");
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (!canvas) return;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
 
-    const ctx = canvas.getContext("2d");
+  const progress = document.getElementById('scrollProgress');
+  const header = document.getElementById('siteHeader');
+  const updateScrollUI = () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const ratio = max > 0 ? window.scrollY / max : 0;
+    if (progress) progress.style.width = `${Math.min(100, Math.max(0, ratio * 100))}%`;
+    if (header) header.classList.toggle('is-scrolled', window.scrollY > 24);
+  };
+  window.addEventListener('scroll', updateScrollUI, { passive: true });
+  updateScrollUI();
+
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const closeMenu = () => {
+    menuToggle?.classList.remove('is-open');
+    menuToggle?.setAttribute('aria-expanded', 'false');
+    mobileMenu?.classList.remove('is-open');
+    mobileMenu?.setAttribute('aria-hidden', 'true');
+  };
+  menuToggle?.addEventListener('click', () => {
+    const open = !mobileMenu?.classList.contains('is-open');
+    menuToggle.classList.toggle('is-open', open);
+    menuToggle.setAttribute('aria-expanded', String(open));
+    mobileMenu?.classList.toggle('is-open', open);
+    mobileMenu?.setAttribute('aria-hidden', String(!open));
+  });
+  mobileMenu?.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', event => { if (event.key === 'Escape') closeMenu(); });
+
+  const reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && !reduceMotion) {
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      });
+    }, { threshold: .12, rootMargin: '0px 0px -45px' });
+    reveals.forEach((element, index) => {
+      element.style.transitionDelay = `${Math.min(index * 55, 280)}ms`;
+      revealObserver.observe(element);
+    });
+  } else reveals.forEach(element => element.classList.add('is-visible'));
+
+  const counters = document.querySelectorAll('.counter');
+  const animateCounter = counter => {
+    const target = Number(counter.dataset.target || 0);
+    const suffix = counter.dataset.suffix || '';
+    if (reduceMotion) { counter.textContent = `${target}${suffix}`; return; }
+    const duration = 1100;
+    const start = performance.now();
+    const tick = now => {
+      const progressValue = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progressValue, 3);
+      counter.textContent = `${Math.round(target * eased)}${suffix}`;
+      if (progressValue < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+  if ('IntersectionObserver' in window) {
+    const counterObserver = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (entry.isIntersecting) { animateCounter(entry.target); counterObserver.unobserve(entry.target); }
+    }), { threshold: .75 });
+    counters.forEach(counter => counterObserver.observe(counter));
+  } else counters.forEach(animateCounter);
+
+  const faqItems = document.querySelectorAll('.faq-item');
+  faqItems.forEach(item => {
+    const button = item.querySelector('.faq-question');
+    button?.addEventListener('click', () => {
+      const wasOpen = item.classList.contains('is-open');
+      faqItems.forEach(other => {
+        other.classList.remove('is-open');
+        other.querySelector('.faq-question')?.setAttribute('aria-expanded', 'false');
+      });
+      if (!wasOpen) {
+        item.classList.add('is-open');
+        button.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  if (!coarsePointer && !reduceMotion) {
+    const dot = document.getElementById('cursorDot');
+    const ring = document.getElementById('cursorRing');
+    let mouseX = -100, mouseY = -100, ringX = -100, ringY = -100;
+    const moveCursor = event => { mouseX = event.clientX; mouseY = event.clientY; if (dot) { dot.style.left = `${mouseX}px`; dot.style.top = `${mouseY}px`; dot.style.opacity = '1'; } if (ring) ring.style.opacity = '1'; };
+    const animateCursor = () => { ringX += (mouseX - ringX) * .15; ringY += (mouseY - ringY) * .15; if (ring) { ring.style.left = `${ringX}px`; ring.style.top = `${ringY}px`; } requestAnimationFrame(animateCursor); };
+    window.addEventListener('mousemove', moveCursor, { passive: true });
+    document.querySelectorAll('a, button, input').forEach(element => {
+      element.addEventListener('mouseenter', () => ring?.classList.add('is-hover'));
+      element.addEventListener('mouseleave', () => ring?.classList.remove('is-hover'));
+    });
+    animateCursor();
+  }
+
+  const canvas = document.createElement('canvas');
+  canvas.className = 'live-canvas';
+  canvas.setAttribute('aria-hidden', 'true');
+  document.body.prepend(canvas);
+  const ctx = canvas.getContext('2d');
+  let nodes = [];
+  const resizeCanvas = () => {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = window.innerWidth * dpr; canvas.height = window.innerHeight * dpr;
+    canvas.style.width = `${window.innerWidth}px`; canvas.style.height = `${window.innerHeight}px`;
+    ctx?.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const compact = window.innerWidth < 700 || coarsePointer;
+    const count = compact ? 20 : 48;
+    nodes = Array.from({ length: count }, () => ({ x: Math.random() * innerWidth, y: Math.random() * innerHeight, vx: (Math.random() - .5) * (compact ? .14 : .24), vy: (Math.random() - .5) * (compact ? .14 : .24), r: Math.random() * 1.6 + .5 }));
+  };
+  const drawCanvas = () => {
     if (!ctx) return;
-    let width = 0;
-    let height = 0;
-    let frame = 0;
-    const pointer = { x: -999, y: -999 };
-    let nodes = [];
-
-    function resize() {
-        width = window.innerWidth;
-        height = window.innerHeight;
-        const dpr = Math.min(window.devicePixelRatio || 1, 2);
-        canvas.width = width * dpr;
-        canvas.height = height * dpr;
-        canvas.style.width = `${width}px`;
-        canvas.style.height = `${height}px`;
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        const isSmallScreen = window.matchMedia("(max-width: 700px)").matches || window.matchMedia("(pointer: coarse)").matches;
-        const count = Math.min(isSmallScreen ? 28 : 80, Math.max(isSmallScreen ? 16 : 28, Math.floor(width / (isSmallScreen ? 26 : 18))));
-        nodes = Array.from({ length: count }, () => ({
-            x: Math.random() * width,
-            y: Math.random() * height,
-            vx: (Math.random() - .5) * .22,
-            vy: (Math.random() - .5) * .16,
-            r: Math.random() * 1.5 + .5
-        }));
-    }
-
-    function draw() {
-        if (!reduced.matches) frame = requestAnimationFrame(draw);
-        ctx.clearRect(0, 0, width, height);
-        nodes.forEach(node => {
-            node.x += node.vx;
-            node.y += node.vy;
-            if (node.x < -20) node.x = width + 20;
-            if (node.x > width + 20) node.x = -20;
-            if (node.y < -20) node.y = height + 20;
-            if (node.y > height + 20) node.y = -20;
-        });
-
-        nodes.forEach((a, index) => {
-            const nearPointer = Math.max(0, 1 - Math.hypot(a.x - pointer.x, a.y - pointer.y) / 180);
-            ctx.beginPath();
-            ctx.arc(a.x, a.y, a.r + nearPointer * 1.7, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(217, 255, 0, ${.28 + nearPointer * .62})`;
-            ctx.shadowBlur = nearPointer * 18;
-            ctx.shadowColor = "rgba(217, 255, 0, .8)";
-            ctx.fill();
-            ctx.shadowBlur = 0;
-            for (let next = index + 1; next < nodes.length; next += 1) {
-                const b = nodes[next];
-                const distance = Math.hypot(a.x - b.x, a.y - b.y);
-                if (distance < 132) {
-                    ctx.beginPath();
-                    ctx.moveTo(a.x, a.y);
-                    ctx.lineTo(b.x, b.y);
-                    ctx.strokeStyle = `rgba(185, 218, 230, ${Math.max(0, .16 - distance / 900)})`;
-                    ctx.lineWidth = .6;
-                    ctx.stroke();
-                }
-            }
-        });
-    }
-
-    window.addEventListener("resize", resize, { passive: true });
-    window.addEventListener("pointermove", event => {
-        pointer.x = event.clientX;
-        pointer.y = event.clientY;
-        document.documentElement.style.setProperty("--scroll-progress", `${Math.min(100, (window.scrollY / Math.max(1, document.documentElement.scrollHeight - innerHeight)) * 100)}%`);
-        if (dot && ring) {
-            dot.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0)`;
-            ring.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0)`;
-            document.body.classList.add("cursor-ready");
-            document.body.classList.toggle("cursor-hover", Boolean(event.target.closest("a, button, .feature-card, .speaker-card, .team-card")));
-        }
-    }, { passive: true });
-    window.addEventListener("pointerleave", () => {
-        pointer.x = -999;
-        pointer.y = -999;
-        document.body.classList.remove("cursor-ready", "cursor-hover");
+    ctx.clearRect(0, 0, innerWidth, innerHeight);
+    nodes.forEach((node, i) => {
+      if (!reduceMotion) { node.x += node.vx; node.y += node.vy; if (node.x < 0 || node.x > innerWidth) node.vx *= -1; if (node.y < 0 || node.y > innerHeight) node.vy *= -1; }
+      ctx.fillStyle = 'rgba(255,153,0,.44)'; ctx.beginPath(); ctx.arc(node.x, node.y, node.r, 0, Math.PI * 2); ctx.fill();
+      nodes.slice(i + 1).forEach(other => { const dx = node.x - other.x; const dy = node.y - other.y; const distance = Math.hypot(dx, dy); if (distance < 140) { ctx.strokeStyle = `rgba(255,153,0,${(1 - distance / 140) * .12})`; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(node.x, node.y); ctx.lineTo(other.x, other.y); ctx.stroke(); } });
     });
-    window.addEventListener("scroll", () => {
-        const scrollable = Math.max(1, document.documentElement.scrollHeight - innerHeight);
-        document.documentElement.style.setProperty("--scroll-progress", `${Math.min(100, (window.scrollY / scrollable) * 100)}%`);
-    }, { passive: true });
-    resize();
-    draw();
-})();
-
-
-/* =========================================================
-   COMMUNITY BADGE
-========================================================= */
-(() => {
-    const nameInput = document.getElementById("badgeName");
-    const namePreview = document.getElementById("badgePreviewName");
-    const downloadButton = document.getElementById("badgeDownload");
-    if (!nameInput || !namePreview || !downloadButton) return;
-
-    nameInput.addEventListener("input", () => {
-        const value = nameInput.value.trim().toUpperCase();
-        namePreview.textContent = value || "STUDENT BUILDER";
-    });
-
-    downloadButton.addEventListener("click", () => {
-        const name = (nameInput.value.trim() || "Student Builder").replace(/[<&>\"']/g, "");
-        const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700"><rect width="1200" height="700" fill="#101a2a"/><rect x="36" y="36" width="1128" height="628" rx="28" fill="none" stroke="#d9ff00" stroke-width="3"/><text x="80" y="120" fill="#d9ff00" font-family="monospace" font-size="28" letter-spacing="6">SB JAIN AWS COMMUNITY</text><text x="80" y="390" fill="#f7f7f2" font-family="Arial, sans-serif" font-size="140" font-weight="800">AWS</text><text x="84" y="500" fill="#bfe6ff" font-family="monospace" font-size="34" letter-spacing="4">${name}</text><text x="84" y="580" fill="#87919e" font-family="monospace" font-size="20" letter-spacing="3">STUDENT BUILDER · BUILD · LEARN · CONNECT</text></svg>`;
-        const blob = new Blob([svg], { type: "image/svg+xml" });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = "sb-jain-aws-community-badge.svg";
-        link.click();
-        URL.revokeObjectURL(url);
-    });
+    if (!reduceMotion) requestAnimationFrame(drawCanvas);
+  };
+  resizeCanvas(); drawCanvas(); window.addEventListener('resize', resizeCanvas, { passive: true });
 })();

@@ -37,3 +37,19 @@ The reference uses a dark near-black base with green ambient aura, a compact top
 ## Supplied HTML integration verification
 
 The page now includes compatible reference sections for Partners, Community Badge, and Contact, with corresponding navigation anchors. The rendered page confirms the badge download control and live canvas are present, and the speaker grid remains at 11 cards.
+
+
+## PRD visual pass findings
+
+The 1920px capture shows the hero image covering the viewport with readable cinematic overlay, large BUILD/LEARN/CONNECT hierarchy, aligned navbar, and orange CTAs. The 390px capture shows the hero stacking correctly, full-width buttons, no visible horizontal clipping, and the hamburger control fitting the header. The remaining breakpoint captures are available for additional checks.
+
+
+The 1024px tablet capture keeps the desktop hero composition readable with aligned navigation and no clipping. The 360px capture stacks the two CTAs at full width and keeps BUILD/LEARN/CONNECT contained within the viewport. Both breakpoint captures preserve the dark campus image and orange hierarchy.
+
+
+## Final PRD breakpoint findings
+
+The 1440px capture preserves the shared container alignment, full-screen hero, campus image cover behavior, readable overlay, and dominant BUILD/LEARN/CONNECT type. The 768px capture switches to the hamburger header and full-width stacked CTAs without clipping. The 390px and 360px captures were also generated in the same pass for narrow-screen coverage.
+
+
+The final 390px and 360px captures show the rebuilt PRD hero with the full-screen campus image, cinematic overlay, contained BUILD/LEARN/CONNECT heading, stacked full-width CTAs, and compact accessible navigation. No clipping or horizontal overflow is visible in the narrowest layouts.
