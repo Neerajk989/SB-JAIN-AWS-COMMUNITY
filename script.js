@@ -421,3 +421,102 @@ window.addEventListener("scroll", () => {
     });
 
 });
+
+
+/* =========================================================
+   LIVE NETWORK BACKGROUND + CURSOR
+========================================================= */
+(() => {
+    const canvas = document.getElementById("liveCanvas");
+    const dot = document.getElementById("cursorDot");
+    const ring = document.getElementById("cursorRing");
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (!canvas || reduced.matches) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    let width = 0;
+    let height = 0;
+    let frame = 0;
+    const pointer = { x: -999, y: -999 };
+    let nodes = [];
+
+    function resize() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+        canvas.style.width = `${width}px`;
+        canvas.style.height = `${height}px`;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        const count = Math.min(80, Math.max(28, Math.floor(width / 18)));
+        nodes = Array.from({ length: count }, () => ({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            vx: (Math.random() - .5) * .22,
+            vy: (Math.random() - .5) * .16,
+            r: Math.random() * 1.5 + .5
+        }));
+    }
+
+    function draw() {
+        frame = requestAnimationFrame(draw);
+        ctx.clearRect(0, 0, width, height);
+        nodes.forEach(node => {
+            node.x += node.vx;
+            node.y += node.vy;
+            if (node.x < -20) node.x = width + 20;
+            if (node.x > width + 20) node.x = -20;
+            if (node.y < -20) node.y = height + 20;
+            if (node.y > height + 20) node.y = -20;
+        });
+
+        nodes.forEach((a, index) => {
+            const nearPointer = Math.max(0, 1 - Math.hypot(a.x - pointer.x, a.y - pointer.y) / 180);
+            ctx.beginPath();
+            ctx.arc(a.x, a.y, a.r + nearPointer * 1.7, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(217, 255, 0, ${.28 + nearPointer * .62})`;
+            ctx.shadowBlur = nearPointer * 18;
+            ctx.shadowColor = "rgba(217, 255, 0, .8)";
+            ctx.fill();
+            ctx.shadowBlur = 0;
+            for (let next = index + 1; next < nodes.length; next += 1) {
+                const b = nodes[next];
+                const distance = Math.hypot(a.x - b.x, a.y - b.y);
+                if (distance < 132) {
+                    ctx.beginPath();
+                    ctx.moveTo(a.x, a.y);
+                    ctx.lineTo(b.x, b.y);
+                    ctx.strokeStyle = `rgba(185, 218, 230, ${Math.max(0, .16 - distance / 900)})`;
+                    ctx.lineWidth = .6;
+                    ctx.stroke();
+                }
+            }
+        });
+    }
+
+    window.addEventListener("resize", resize, { passive: true });
+    window.addEventListener("pointermove", event => {
+        pointer.x = event.clientX;
+        pointer.y = event.clientY;
+        document.documentElement.style.setProperty("--scroll-progress", `${Math.min(100, (window.scrollY / Math.max(1, document.documentElement.scrollHeight - innerHeight)) * 100)}%`);
+        if (dot && ring) {
+            dot.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0)`;
+            ring.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0)`;
+            document.body.classList.add("cursor-ready");
+            document.body.classList.toggle("cursor-hover", Boolean(event.target.closest("a, button, .feature-card, .speaker-card, .team-card")));
+        }
+    }, { passive: true });
+    window.addEventListener("pointerleave", () => {
+        pointer.x = -999;
+        pointer.y = -999;
+        document.body.classList.remove("cursor-ready", "cursor-hover");
+    });
+    window.addEventListener("scroll", () => {
+        const scrollable = Math.max(1, document.documentElement.scrollHeight - innerHeight);
+        document.documentElement.style.setProperty("--scroll-progress", `${Math.min(100, (window.scrollY / scrollable) * 100)}%`);
+    }, { passive: true });
+    resize();
+    draw();
+})();
