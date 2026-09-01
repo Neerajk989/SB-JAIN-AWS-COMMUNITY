@@ -2896,3 +2896,19 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--orange); outlin
 .speaker-details p { margin-top: 18px; color: #87919e; font-family: monospace; font-size: 11px; line-height: 1.5; }
 @media (max-width: 900px) { .speaker-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 560px) { .speaker-grid { grid-template-columns: 1fr; } .speaker-card { min-height: 400px; } }
+
+/* Reference typography scale: smaller, tighter hero type without changing content. */
+body { font-family: "Inter", "Helvetica Neue", Arial, sans-serif; }
+.hero h1 { font-size: clamp(48px, 6.2vw, 92px); line-height: .86; letter-spacing: -4px; }
+.hero-line.script { font-family: "Instrument Serif", Georgia, serif; letter-spacing: -3px; }
+.hero-description { max-width: 560px; font-size: 12px; line-height: 1.72; }
+.hero-kicker { font-size: 9px; }
+.event-status { font-size: 8px; padding: 8px 12px; }
+.hero-buttons { margin-top: 24px; }
+.primary-button, .secondary-button { min-height: 44px; padding-inline: 19px; font-size: 9px; }
+.section-heading { font-size: clamp(38px, 5vw, 70px); }
+@media (max-width: 700px) {
+    .hero h1 { font-size: clamp(42px, 13vw, 68px); letter-spacing: -2.5px; }
+    .hero-line.script { letter-spacing: -2px; }
+    .hero-description { font-size: 11px; }
+}

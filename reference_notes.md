@@ -17,3 +17,8 @@ The rendered page contains 3 speaker/mentor cards. Computed styles confirm the t
 ## Final speaker/mentor visual check
 
 The reference-style card update is visible in the live page: the speaker/mentor section uses the requested green-black backdrop and the existing 3-card list uses rounded navy boxes with circular portrait wells. The hero and surrounding sections remain unchanged. A desktop browser refresh rendered successfully after the update.
+
+
+## Hero typography verification
+
+The hero now renders at a smaller reference-style scale: Student, Community, Day 2026, and Nagpur occupy less vertical space while remaining legible. Supporting copy and CTA controls were reduced proportionally, and the browser confirmed the existing navigation, stats, and lower sections remain present.

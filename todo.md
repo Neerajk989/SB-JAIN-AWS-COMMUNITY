@@ -21,3 +21,11 @@
 - [x] Match the supplied reference with rounded dark cards, circular portrait treatment, compact metadata, and green-black section background.
 - [x] Keep the card grid responsive on desktop and mobile.
 - [x] Verify the visual update and commit it to GitHub.
+
+## Hero typography and supplied HTML request
+
+- [x] Reduce the hero headline size to match the supplied reference screenshot.
+- [x] Preserve the current content and existing page structure unless the supplied HTML provides a safe direct enhancement.
+- [x] Review supplied HTML for reusable, non-conflicting content and avoid importing broken asset paths or external scripts blindly.
+- [x] Verify desktop and mobile typography after the update.
+- [x] Commit the update to GitHub.
