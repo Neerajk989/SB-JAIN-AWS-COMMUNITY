@@ -22,3 +22,13 @@ The reference-style card update is visible in the live page: the speaker/mentor 
 ## Hero typography verification
 
 The hero now renders at a smaller reference-style scale: Student, Community, Day 2026, and Nagpur occupy less vertical space while remaining legible. Supporting copy and CTA controls were reduced proportionally, and the browser confirmed the existing navigation, stats, and lower sections remain present.
+
+
+## Reference structure verification
+
+The rendered speaker section now contains 2 keynote cards and 9 speaker/mentor cards, for 11 total boxes. The section background is rgb(24, 39, 29) (#18271d), and the live canvas layer remains present for animated background behavior.
+
+
+## Full reference-match findings
+
+The reference uses a dark near-black base with green ambient aura, a compact top navigation and ticker, a large editorial hero, grouped keynote and speaker sections, and rounded dark cards. Its speaker grouping contains 2 keynote cards followed by 9 speaker cards. The local page now follows that grouping and uses the same green-black section tone while retaining SB Jain context.

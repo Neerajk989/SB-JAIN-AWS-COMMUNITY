@@ -431,7 +431,7 @@ window.addEventListener("scroll", () => {
     const dot = document.getElementById("cursorDot");
     const ring = document.getElementById("cursorRing");
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (!canvas || reduced.matches) return;
+    if (!canvas) return;
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
@@ -461,7 +461,7 @@ window.addEventListener("scroll", () => {
     }
 
     function draw() {
-        frame = requestAnimationFrame(draw);
+        if (!reduced.matches) frame = requestAnimationFrame(draw);
         ctx.clearRect(0, 0, width, height);
         nodes.forEach(node => {
             node.x += node.vx;

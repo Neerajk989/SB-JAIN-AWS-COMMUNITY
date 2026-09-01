@@ -2912,3 +2912,18 @@ body { font-family: "Inter", "Helvetica Neue", Arial, sans-serif; }
     .hero-line.script { letter-spacing: -2px; }
     .hero-description { font-size: 11px; }
 }
+
+/* Reference speaker grouping */
+.speaker-group-title { margin: 54px 0 22px; color: var(--orange); font-family: monospace; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; }
+.speaker-grid-keynotes { grid-template-columns: repeat(2, minmax(0, 290px)); justify-content: center; }
+.speaker-grid-main { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.speaker-grid-main .speaker-card { min-height: 390px; }
+@media (max-width: 900px) { .speaker-grid-keynotes { grid-template-columns: repeat(2, minmax(0, 1fr)); } .speaker-grid-main { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .speaker-grid-keynotes, .speaker-grid-main { grid-template-columns: 1fr; } .speaker-group-title { margin-top: 38px; } }
+
+/* Reference-match correction: keep the live aura visible across the page. */
+.live-canvas { display: block !important; opacity: .54; }
+body::before { opacity: .055; }
+.hero::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(circle at 70% 28%, rgba(217,255,0,.08), transparent 18%), radial-gradient(circle at 16% 72%, rgba(74,126,95,.16), transparent 28%); animation: auraBreath 12s ease-in-out infinite alternate; }
+@keyframes auraBreath { from { opacity: .55; transform: scale(1); } to { opacity: 1; transform: scale(1.04); } }
+@media (prefers-reduced-motion: reduce) { .hero::before { animation: none; } }

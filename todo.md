@@ -29,3 +29,12 @@
 - [x] Review supplied HTML for reusable, non-conflicting content and avoid importing broken asset paths or external scripts blindly.
 - [x] Verify desktop and mobile typography after the update.
 - [x] Commit the update to GitHub.
+
+## Full reference-match request
+
+- [x] Match the reference’s overall section structure and navigation rhythm.
+- [x] Restore the same dark green ambient background tone and live aura treatment.
+- [x] Match the reference speaker/mentor grouping and number of boxes without copying proprietary assets.
+- [x] Align spacing, typography hierarchy, borders, buttons, and responsive UI/UX to the reference.
+- [x] Verify desktop/mobile rendering, motion safeguards, and accessibility.
+- [x] Commit the matched update to GitHub.
