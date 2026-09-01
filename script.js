@@ -450,7 +450,8 @@ window.addEventListener("scroll", () => {
         canvas.style.width = `${width}px`;
         canvas.style.height = `${height}px`;
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        const count = Math.min(80, Math.max(28, Math.floor(width / 18)));
+        const isSmallScreen = window.matchMedia("(max-width: 700px)").matches || window.matchMedia("(pointer: coarse)").matches;
+        const count = Math.min(isSmallScreen ? 28 : 80, Math.max(isSmallScreen ? 16 : 28, Math.floor(width / (isSmallScreen ? 26 : 18))));
         nodes = Array.from({ length: count }, () => ({
             x: Math.random() * width,
             y: Math.random() * height,
@@ -519,4 +520,32 @@ window.addEventListener("scroll", () => {
     }, { passive: true });
     resize();
     draw();
+})();
+
+
+/* =========================================================
+   COMMUNITY BADGE
+========================================================= */
+(() => {
+    const nameInput = document.getElementById("badgeName");
+    const namePreview = document.getElementById("badgePreviewName");
+    const downloadButton = document.getElementById("badgeDownload");
+    if (!nameInput || !namePreview || !downloadButton) return;
+
+    nameInput.addEventListener("input", () => {
+        const value = nameInput.value.trim().toUpperCase();
+        namePreview.textContent = value || "STUDENT BUILDER";
+    });
+
+    downloadButton.addEventListener("click", () => {
+        const name = (nameInput.value.trim() || "Student Builder").replace(/[<&>\"']/g, "");
+        const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700"><rect width="1200" height="700" fill="#101a2a"/><rect x="36" y="36" width="1128" height="628" rx="28" fill="none" stroke="#d9ff00" stroke-width="3"/><text x="80" y="120" fill="#d9ff00" font-family="monospace" font-size="28" letter-spacing="6">SB JAIN AWS COMMUNITY</text><text x="80" y="390" fill="#f7f7f2" font-family="Arial, sans-serif" font-size="140" font-weight="800">AWS</text><text x="84" y="500" fill="#bfe6ff" font-family="monospace" font-size="34" letter-spacing="4">${name}</text><text x="84" y="580" fill="#87919e" font-family="monospace" font-size="20" letter-spacing="3">STUDENT BUILDER · BUILD · LEARN · CONNECT</text></svg>`;
+        const blob = new Blob([svg], { type: "image/svg+xml" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "sb-jain-aws-community-badge.svg";
+        link.click();
+        URL.revokeObjectURL(url);
+    });
 })();

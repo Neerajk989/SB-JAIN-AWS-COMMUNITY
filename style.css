@@ -2927,3 +2927,27 @@ body::before { opacity: .055; }
 .hero::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(circle at 70% 28%, rgba(217,255,0,.08), transparent 18%), radial-gradient(circle at 16% 72%, rgba(74,126,95,.16), transparent 28%); animation: auraBreath 12s ease-in-out infinite alternate; }
 @keyframes auraBreath { from { opacity: .55; transform: scale(1); } to { opacity: 1; transform: scale(1.04); } }
 @media (prefers-reduced-motion: reduce) { .hero::before { animation: none; } }
+
+/* Supplied reference HTML additions */
+.partners, .badge-section, .contact-section { background: #18271d; }
+.partner-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 30px; }
+.partner-card { min-height: 160px; display: flex; flex-direction: column; justify-content: space-between; padding: 22px; border: 1px solid rgba(217,255,0,.22); border-radius: 16px; background: #101a2a; transition: transform .25s cubic-bezier(.23,1,.32,1), border-color .25s ease; }
+.partner-card:hover { transform: translateY(-6px); border-color: var(--orange); }
+.partner-card span { color: var(--orange); font-family: monospace; font-size: 11px; }
+.partner-card strong { color: var(--white); font-size: 18px; letter-spacing: -1px; }
+.partner-card small { color: #84908b; font-family: monospace; font-size: 10px; }
+.badge-layout, .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.badge-copy, .contact-copy p { max-width: 420px; margin-top: 22px; color: #aeb5bf; line-height: 1.7; }
+.badge-tool { padding: 24px; border: 1px solid rgba(217,255,0,.22); border-radius: 18px; background: #101a2a; }
+.badge-preview { display: flex; flex-direction: column; justify-content: space-between; min-height: 190px; margin-bottom: 22px; padding: 22px; border: 1px solid rgba(217,255,0,.55); background: linear-gradient(145deg, rgba(217,255,0,.13), rgba(16,26,42,.8) 46%); }
+.badge-preview span, .badge-preview small, .badge-tool label { color: var(--orange); font-family: monospace; font-size: 10px; letter-spacing: 1.6px; }
+.badge-preview strong { color: var(--white); font-size: 54px; letter-spacing: -4px; }
+.badge-preview small { color: #c6ced9; }
+.badge-controls { display: flex; gap: 10px; margin-top: 8px; }
+.badge-controls input { min-width: 0; flex: 1; height: 42px; padding: 0 12px; border: 1px solid rgba(255,255,255,.18); border-radius: 0; background: #080d14; color: var(--white); font-family: monospace; }
+.badge-controls input:focus { outline: 2px solid var(--orange); outline-offset: 2px; }
+.badge-controls button { height: 42px; padding: 0 15px; border: 0; background: var(--orange); color: #0a0c0e; font-family: monospace; font-size: 10px; font-weight: 800; cursor: pointer; }
+.contact-copy .primary-button { margin-top: 24px; }
+@media (max-width: 760px) { .partner-grid, .badge-layout, .contact-layout { grid-template-columns: 1fr; } .badge-layout, .contact-layout { gap: 30px; } .badge-tool { margin-top: 8px; } .badge-controls { flex-direction: column; } .badge-controls button { width: 100%; } }
+
+@media (max-width: 700px) { .live-canvas { opacity: .28; } }

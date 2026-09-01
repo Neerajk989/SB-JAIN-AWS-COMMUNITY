@@ -1,12 +1,12 @@
 
 ## Reference rebuild request
 
-- [ ] Inspect https://www.awscommunityday.dev/ for layout, navigation, sections, and motion cues.
-- [ ] Recreate the reference-inspired page for SB Jain AWS Community without copying protected branding or proprietary assets verbatim.
-- [ ] Add a live animated background with reduced-motion and mobile safeguards.
-- [ ] Preserve or adapt existing backend flows only where they fit the new page structure.
-- [ ] Verify responsive behavior, visual fidelity, accessibility, and production build.
-- [ ] Save a new checkpoint for the reference-inspired rebuild.
+- [x] Inspect https://www.awscommunityday.dev/ for layout, navigation, sections, and motion cues.
+- [x] Recreate the reference-inspired page for SB Jain AWS Community without copying protected branding or proprietary assets verbatim.
+- [x] Add a live animated background with reduced-motion and mobile safeguards.
+- [x] Preserve or adapt existing backend flows only where they fit the new page structure.
+- [x] Verify responsive behavior, visual fidelity, accessibility, and production build.
+- [x] Save a new checkpoint for the reference-inspired rebuild.
 
 ## Hero simplification request
 
