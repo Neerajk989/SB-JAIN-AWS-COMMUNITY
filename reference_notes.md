@@ -12,3 +12,8 @@ Rebuild direction: match the information architecture, dark immersive pacing, la
 ## Speaker-card verification
 
 The rendered page contains 3 speaker/mentor cards. Computed styles confirm the target treatment: speaker section background rgb(24, 39, 29) (#18271d), card background rgb(16, 26, 42) (#101a2a), rounded 18px cards, and 50% circular portrait wells. Desktop browser verification completed successfully.
+
+
+## Final speaker/mentor visual check
+
+The reference-style card update is visible in the live page: the speaker/mentor section uses the requested green-black backdrop and the existing 3-card list uses rounded navy boxes with circular portrait wells. The hero and surrounding sections remain unchanged. A desktop browser refresh rendered successfully after the update.
