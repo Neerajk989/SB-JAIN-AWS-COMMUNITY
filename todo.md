@@ -14,3 +14,10 @@
 - [x] Remove the right-side display image/card only.
 - [x] Preserve hero text, navigation, stats, live interactions, and other sections.
 - [x] Verify the simplified hero on desktop and mobile and push the update.
+
+## Speaker and mentor card refinement
+
+- [x] Preserve all existing speaker and mentor names, content, and interactions.
+- [x] Match the supplied reference with rounded dark cards, circular portrait treatment, compact metadata, and green-black section background.
+- [x] Keep the card grid responsive on desktop and mobile.
+- [x] Verify the visual update and commit it to GitHub.

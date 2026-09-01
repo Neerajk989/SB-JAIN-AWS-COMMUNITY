@@ -7,3 +7,8 @@ The reference uses a dark cinematic event landing page with a full-screen intro/
 The homepage content hierarchy is: event-concluded announcement; navigation; hero title and location/date metadata; stats; campus/event identity card; marquee; about/value propositions; why-attend proof points; speaker grid; agenda schedule; venue; partners; participation badge; team; FAQ accordion; contact; credits/footer. Visible interaction cues include a Skip control, event-concluded CTA, maps link, FAQ accordions, badge photo/name inputs, soundtrack toggle, fullscreen credits, replay credits, and social/contact links.
 
 Rebuild direction: match the information architecture, dark immersive pacing, large typographic hero, marquee/section transitions, and interactive cards, but use SB Jain AWS Community content and original/generated assets rather than copying the reference site's proprietary text, logo, or images verbatim. Add a live animated canvas background with low-power mobile behavior and prefers-reduced-motion support.
+
+
+## Speaker-card verification
+
+The rendered page contains 3 speaker/mentor cards. Computed styles confirm the target treatment: speaker section background rgb(24, 39, 29) (#18271d), card background rgb(16, 26, 42) (#101a2a), rounded 18px cards, and 50% circular portrait wells. Desktop browser verification completed successfully.
